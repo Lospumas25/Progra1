@@ -31,14 +31,12 @@ Diagrama de Flujo de la Aplicación:
     👥 Equipo 
 
 Integrantes:
-- Cantero, Raul Ariel – Legajo: 1184085
 - Mamani Argote, Alejandro Matias  – Legajo: 1151978
 - Scala Merani, Damian Gabriel – Legajo: 1139436
 - Arias Castroman, Santiago – Legajo: 1224594
 - Massun, Felipe – Legajo: 1195389
 
 Roles:
-- Líder de Proyecto:  Cantero, Raul Ariel
 - Diseñador UX/UI: Mamani Argote, Alejandro Matias
 - Programador de Gestión de Usuarios: Scala Merani, Damian Gabriel
 - Programador de Transacciones: Arias Castroman, Santiago

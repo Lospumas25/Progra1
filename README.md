@@ -1,4 +1,27 @@
-FLASHPLAY
+KIWILLET 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -53,8 +76,8 @@ dar de baja
 
 	2.1- Tarjetas
 		2.1.1- ver tarjetas
-			2.1.1.1- muestra de tarjetas
-			2.1.1.2- elige con 1…n la tarjeta para ver sus datos
+2.1.1.1- muestra de tarjetas (muestra el tipo, “crédito       santander, debito MP”, etc)
+			2.1.1.2- elige con 1…n la tarjeta para ver sus datos completos
 		2.1.2- agregar tarjeta
 			2.1.2.1- ingresar código
 			2.1.2.2- ingresar fecha de caducidad
@@ -66,4 +89,10 @@ dar de baja
 		2.2.1 Pagar Agua → ingrese monto
 		2.2.2 Pagar Gas → ingrese monto 
 		2.2.3 Pagar Luz → ingrese monto
+	2.3 Modificar Cuenta 
+		2.2.1 Cambiar contraseña → ingrese contraseña
 
+	2.4 Ingresar Dinero 
+2.4.1 a		
+		
+	2.4 Salir 

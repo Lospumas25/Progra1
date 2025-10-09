@@ -33,8 +33,6 @@ Gastos
 
 Estadística de saldo por dia (resumen al final del mes)
 
-
-
 Menu
 0	EL LOGIN
 

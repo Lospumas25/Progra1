@@ -19,7 +19,7 @@ Turno: Noche – 2° Cuatrimestre 2025
 Integrantes
 • Massun, Felipe
 • Scala Merani, Damián / 1139436
-• Arias Castroman, Santiago
+• Arias Castroman, Santiago / 1224594
 • Mamani, Alejandro
 
 

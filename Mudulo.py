@@ -1,4 +1,4 @@
-
+import random
 
 #USUARIO
 def ingresarNombre (texto,nummin,nummax): 
@@ -65,6 +65,9 @@ def tipoTarjeta ():
             print("El valor esta dentro de los parametros permitidos")
     
     return tipoTarjeta
+
+
+#Tarjetas 
 
 
 

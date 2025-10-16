@@ -28,6 +28,21 @@ def ingresarContraseña (texto,min, max):
             print(f'Ingreso erroneo!, la contraseña debe tener entre {min} y {max}   caracteres')
     return contraseña
 
+def crearCuenta (): 
+    try:
+        archivoUsuario = open("Usuario, wt")
+    except IOError:
+        print("algo salio mal, no se pudo crear su cuenta")
+    else:            
+        nombre =ingresarNombre ("ingrese su nombre de usuario", 4, 12)
+        contraseña =ingresarContraseña ("ingrese su contraseña", 4, 12)
+        saldo = "0"
+        archivoUsuario.write(str(nombre) + ";" + str(contraseña) + ";", + saldo + "\n")
+    return
+    
+
+
+
 def tipoTarjeta (): 
     
     tipoTarjetas = ["VISA","MASTERCARD","AMEX"]
@@ -50,6 +65,7 @@ def tipoTarjeta ():
             print("El valor esta dentro de los parametros permitidos")
     
     return tipoTarjeta
+
 
 
 

@@ -68,13 +68,16 @@ def tipoTarjeta ():
 
 #TARJETAS
 
-def validarCodigo(minimo, maximo ,DiccTarjetas):
+#TARJETAS
+
+def validarCodigo(minimo, maximo ,diccTarjetas):
     while true:
         try:
             codigo = input("Ingrese codigo de tarjeta: ")
             if codigo.isdigit() == False:
                 raise ValueError
-            
+            if codigo in diccTarjeta:
+                
             
             break
 
@@ -83,6 +86,8 @@ def validarCodigo(minimo, maximo ,DiccTarjetas):
         
         except:
             print("Error")
+
+
 
 
 

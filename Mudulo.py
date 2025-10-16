@@ -6,7 +6,7 @@ def ingresarNombre (texto,nummin,nummax):
         try : 
             nombre = input(texto).strip
             
-            if len(nombre) < nummin or len(nombre)>nummax : 
+            if len(nombre) < int(nummin) or len(nombre)>int(nummax) : 
                 raise ValueError
 
             break
@@ -20,7 +20,7 @@ def ingresarContraseña (texto,minimo,maximo):
         try: 
 
             contraseña = input(texto) 
-            if (len(contraseña) < max) or (len(contraseña > min)): 
+            if (len(contraseña) < int(max)) or (len(contraseña > int(min))): 
                 raise ValueError
             break
         
@@ -34,8 +34,8 @@ def crearCuenta ():
     except IOError:
         print("algo salio mal, no se pudo crear su cuenta")
     else:            
-        nombre =ingresarNombre ("ingrese su nombre de usuario", 4, 12)
-        contraseña =ingresarContraseña ("ingrese su contraseña", 4, 12)
+        nombre =ingresarNombre ("ingrese su nombre de usuario", "4", "12")
+        contraseña =ingresarContraseña ("ingrese su contraseña", "4", "12")
         saldo = "0"
         archivoUsuario.write(str(nombre) + ";" + str(contraseña) + ";", + saldo + "\n")
     return
@@ -83,6 +83,7 @@ def validarCodigo(minimo, maximo ,DiccTarjetas):
         
         except:
             print("Error")
+
 
 
 

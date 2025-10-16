@@ -15,7 +15,7 @@ def ingresarNombre (texto,nummin,nummax):
 
     return nombre 
 
-def ingresarContraseña (texto,min, max): 
+def ingresarContraseña (texto,minimo,maximo): 
     while True:
         try: 
 
@@ -68,6 +68,7 @@ def tipoTarjeta ():
 
 
 #Tarjetas 
+
 
 
 

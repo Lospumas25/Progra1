@@ -1,6 +1,6 @@
-#USUARIO
-
 import random
+
+#USUARIO
 
 def ingresarNombre(texto,minimo,maximo):
     while True:
@@ -80,6 +80,7 @@ def validarCodigo(minimo, maximo ,diccTarjetas):
         
         except:
             print("Error")
+
 
 
 

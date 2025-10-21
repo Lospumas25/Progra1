@@ -1,18 +1,19 @@
+#USUARIO
+
 import random
 
-def ingresarNombre (texto,nummin,nummax): 
+def ingresarNombre(texto, minimo, maximo):
     while True:
-        try : 
-            nombre = input(texto).strip
-            
-            if len(nombre) < int(nummin) or len(nombre)>int(nummax) : 
+        try:
+            nombre = input(texto).strip()
+            if not nombre:
                 raise ValueError
-
+            if len(nombre) < minimo or len(nombre) > maximo:
+                raise ValueError
             break
-        except ValueError: 
-            print(f'Ingreso erroneo! Tu nombre debe tener mas de {nummin} y menos que {nummax} ')
-
-    return nombre 
+        except ValueError:
+            print(f'Ingreso erróneo. Tu nombre debe tener entre {minimo} y {maximo} caracteres.')
+    return nombre
 
 def ingresarContraseña (texto,minimo,maximo): 
     while True:
@@ -38,6 +39,8 @@ def crearCuenta ():
         saldo = "0"
         archivoUsuario.write(str(nombre) + ";" + str(contraseña) + ";", + saldo + "\n")
     return
+
+#TARJETA
 
 def tipoTarjeta (): 
     
@@ -77,15 +80,6 @@ def validarCodigo(minimo, maximo ,diccTarjetas):
         
         except:
             print("Error")
-
-
-
-
-
-
-
-
-
 
 
 

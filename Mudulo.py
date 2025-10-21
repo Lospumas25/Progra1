@@ -1,7 +1,15 @@
 import random
+#---------------------------------------------------------------LOG--------------------------------------------------------------------------
 
-#USUARIO
 
+
+#---------------------------------------------------------------USUARIO----------------------------------------------------------------------
+def cargarUsuario():
+
+
+def guardarUsuario():
+
+    
 def ingresarNombre(texto,minimo,maximo):
     while True:
         try:
@@ -40,8 +48,7 @@ def crearCuenta():
         archivoUsuario.close()
         return True
 
-#TARJETA
-
+#---------------------------------------------------------------TARJETA---------------------------------------------------------------------
 def tipoTarjeta():
     tipoTarjetas = ["VISA", "MASTERCARD", "AMEX"]
     while True:
@@ -74,8 +81,7 @@ def validarCodigo(minimo, maximo, diccTarjetas):
             print("Error inesperado")
     return codigo
 
-#SERVICIOS
-
+#---------------------------------------------------------------SERVICIOS-----------------------------------------------------------------
 def tipoServicio():
     servicios = ["Agua", "Gas", "Luz"]
     while True:
@@ -90,11 +96,12 @@ def tipoServicio():
             print("Entrada inválida.", e)
     return servicios[opcion - 1]
 
+#---------------------------------------------------------------MOVIMIENTOS---------------------------------------------------------------
 
 
 
 
-
+#---------------------------------------------------------------REPORTES------------------------------------------------------------------
 
 
 

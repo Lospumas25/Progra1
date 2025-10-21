@@ -42,44 +42,37 @@ def crearCuenta():
 
 #TARJETA
 
-def tipoTarjeta (): 
-    
-    tipoTarjetas = ["VISA","MASTERCARD","AMEX"]
-    
-    while True: 
-        try: 
-            print("Elija el tipo de tarjeta!")
-            for i in range (3):
-                print(i+1,tipoTarjetas[i])
-            
-            tarjeta = int(input("Ingrese el numero del 1 al 3: "))
-            
-            if tarjeta < 1 or tarjeta > 3 :
-                raise ValueError
-            
-            break 
-            
-            
-        except ValueError:
-            print("El valor esta dentro de los parametros permitidos")
-    
-    return tipoTarjeta
-
-def validarCodigo(minimo, maximo ,diccTarjetas):
-    while true:
+def tipoTarjeta():
+    tipoTarjetas = ["VISA", "MASTERCARD", "AMEX"]
+    while True:
         try:
-            codigo = input("Ingrese codigo de tarjeta: ")
-            if codigo.isdigit() == False:
-                raise ValueError
-            if codigo in diccTarjeta:
-                
+            print("Elija el tipo de tarjeta")
+            for i in range(len(tipoTarjetas)):
+                print(i + 1, tipoTarjetas[i])
+            tarjeta = int(input(f"Ingrese el número del 1 al {len(tipoTarjetas)}: "))
+            if tarjeta < 1 or tarjeta > len(tipoTarjetas):
+                raise ValueError("Opción fuera de rango.")
             break
-
+        except ValueError as e:
+            print("Entrada inválida.", e)
+    return tipoTarjetas[tarjeta - 1]
+            
+def validarCodigo(minimo, maximo, diccTarjetas):
+    while True:
+        try:
+            codigo = input("Ingrese codigo de tarjeta: ").strip()
+            if not codigo.isdigit():
+                raise ValueError("El codigo debe contener solo digitos")
+            if not (minimo <= len(codigo) <= maximo):
+                raise ValueError(f"El codigo debe tener entre {minimo} y {maximo} digitos")
+            if codigo in diccTarjetas:
+                raise ValueError("El código ya existe. Ingrese uno distinto")
+            break
         except ValueError as mensaje:
             print(mensaje)
-        
         except:
-            print("Error")
+            print("Error inesperado")
+    return codigo
 
 
 

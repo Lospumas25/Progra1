@@ -1,6 +1,5 @@
 import random
 
-#USUARIO
 def ingresarNombre (texto,nummin,nummax): 
     while True:
         try : 
@@ -39,9 +38,6 @@ def crearCuenta ():
         saldo = "0"
         archivoUsuario.write(str(nombre) + ";" + str(contraseña) + ";", + saldo + "\n")
     return
-    
-
-
 
 def tipoTarjeta (): 
     
@@ -66,10 +62,6 @@ def tipoTarjeta ():
     
     return tipoTarjeta
 
-#TARJETAS
-
-#TARJETAS
-
 def validarCodigo(minimo, maximo ,diccTarjetas):
     while true:
         try:
@@ -78,7 +70,6 @@ def validarCodigo(minimo, maximo ,diccTarjetas):
                 raise ValueError
             if codigo in diccTarjeta:
                 
-            
             break
 
         except ValueError as mensaje:
@@ -86,6 +77,7 @@ def validarCodigo(minimo, maximo ,diccTarjetas):
         
         except:
             print("Error")
+
 
 
 

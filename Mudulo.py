@@ -74,6 +74,23 @@ def validarCodigo(minimo, maximo, diccTarjetas):
             print("Error inesperado")
     return codigo
 
+#SERVICIOS
+
+def tipoServicio():
+    servicios = ["Agua", "Gas", "Luz"]
+    while True:
+        try:
+            for i in range(len(servicios)):
+                print(i + 1, f"Pagar {servicios[i]}")
+            opcion = int(input(f"Ingrese el número del 1 al {len(servicios)}: "))
+            if opcion < 1 or opcion > len(servicios):
+                raise ValueError("Opción fuera de rango.")
+            break
+        except ValueError as e:
+            print("Entrada inválida.", e)
+    return servicios[opcion - 1]
+
+
 
 
 

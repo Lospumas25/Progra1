@@ -2,7 +2,7 @@
 
 import random
 
-def ingresarNombre(texto, minimo, maximo):
+def ingresarNombre(texto,minimo,maximo):
     while True:
         try:
             nombre = input(texto).strip()
@@ -12,33 +12,33 @@ def ingresarNombre(texto, minimo, maximo):
                 raise ValueError
             break
         except ValueError:
-            print(f'Ingreso erróneo. Tu nombre debe tener entre {minimo} y {maximo} caracteres.')
+            print(f"Ingreso erroneo: Tu nombre debe tener entre {minimo} y {maximo} caracteres.")
     return nombre
 
-def ingresarContraseña (texto,minimo,maximo): 
+def ingresarContraseña(texto,minimo,maximo):
     while True:
-        try: 
-
-            contraseña = input(texto) 
-            if (len(contraseña) < int(max)) or (len(contraseña > int(min))): 
+        try:
+            contraseña = input(texto)
+            if len(contraseña) < minimo or len(contraseña) > maximo:
                 raise ValueError
             break
-        
-        except ValueError: 
-            print(f'Ingreso erroneo!, la contraseña debe tener entre {min} y {max}   caracteres')
+        except ValueError:
+            print(f'Ingreso erroneo: la contraseña debe tener entre {minimo} y {maximo} caracteres.')
     return contraseña
 
-def crearCuenta (): 
+def crearCuenta():
     try:
-        archivoUsuario = open("Usuario, wt")
-    except IOError:
-        print("algo salio mal, no se pudo crear su cuenta")
-    else:            
-        nombre =ingresarNombre ("ingrese su nombre de usuario", "4", "12")
-        contraseña =ingresarContraseña ("ingrese su contraseña", "4", "12")
+        archivoUsuario = open("Usuario.txt", "wt")
+    except OSError:
+        print("Algo salio mal, no se pudo crear su cuenta.")
+        return False
+    else:
+        nombre = ingresarNombre("Ingrese su nombre de usuario: ", 4, 12)
+        contraseña = ingresarContraseña("Ingrese su contraseña: ", 4, 12)
         saldo = "0"
         archivoUsuario.write(str(nombre) + ";" + str(contraseña) + ";", + saldo + "\n")
-    return
+        archivoUsuario.close()
+        return True
 
 #TARJETA
 
@@ -80,6 +80,7 @@ def validarCodigo(minimo, maximo ,diccTarjetas):
         
         except:
             print("Error")
+
 
 
 

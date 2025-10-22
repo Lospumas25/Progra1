@@ -1,6 +1,6 @@
 import random
 
-""" FALTA LAMBDA / LISTA COMPRENSION / SLICING / RANDOM / DICCIONARIOS / RECURSIVIDAD"""
+""" FALTA LAMBDA / LISTA COMPRENSION / SLICING / RANDOM / DICCIONARIOS / RECURSIVIDAD """
 #---------------------------------------------------------------LOG--------------------------------------------------------------------------
 
 def Log():
@@ -132,6 +132,7 @@ def transferir():
 #---------------------------------------------------------------REPORTES------------------------------------------------------------------
 
 def mostrarReportes():
+
 
 
 

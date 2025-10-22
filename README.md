@@ -59,7 +59,7 @@ Nombre de servicio
 
 Archivos de salida 
 
-      -Bitácora (Log) Almacena todos los inputs con fecha y hora
+-Bitácora (Log) Almacena todos los inputs con fecha y hora
 
 Pagos Diccionario
 Gastos Diccionario

@@ -54,7 +54,7 @@ def crearCuenta():
 def login():
 
 
-def modificarContrasenia():
+def modificarContraseña():
     try:
         archivoUsuario = open("Usuario.txt", "rt")
     except OSError:
@@ -153,6 +153,7 @@ def transferir():
 #---------------------------------------------------------------REPORTES------------------------------------------------------------------
 
 def mostrarReportes():
+
 
 
 

@@ -61,7 +61,7 @@ def crearCuenta():
         Log("Crea Cuenta")
         return True
 
-def login ():
+def login ():                    #DEVUELVE UN TRUE SI EL USUARIO Y CONTRASEÑA SON CORRECTOS, UN FALSE SI NO LO SON
     nombreUsuario = ingresarNombre ("ingrese su nombre de usuario, el usuario debe tener entre 4 y 12 caracteres", 4, 12)
     contraseñaUsuario = ingresarContraseña ("ingrese su contraseña, la contraseña debe tener entre 4 y 12 caracteres", 4, 12)
     try:
@@ -177,6 +177,7 @@ def transferir():
 #---------------------------------------------------------------REPORTES------------------------------------------------------------------
 
 def mostrarReportes():
+
 
 
 

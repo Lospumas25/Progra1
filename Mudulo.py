@@ -222,6 +222,7 @@ def pagarServicio():
             
             break
         except ValueError as e:
+            Log("Error en el proceso de pago de servicio")
             print("Entrada inválida.", e)
 
 
@@ -234,3 +235,4 @@ def transferir():
 
 def mostrarReportes():
     return
+

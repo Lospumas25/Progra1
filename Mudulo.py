@@ -1,11 +1,20 @@
 import random
-import datetime
+from datetime import datetime
 
 """ FALTA LAMBDA / LISTA COMPRENSION / SLICING / RANDOM / DICCIONARIOS / RECURSIVIDAD """
 #---------------------------------------------------------------LOG--------------------------------------------------------------------------
 
 def Log(texto):
-    fechaActual = datetime
+    
+    time = datetime.now()
+    
+    try: 
+        archivoLog = open("ArchivoLog.txt", "at")
+        archivoLog.write(str(time) + ";" + texto + "\n")
+        archivoLog.close()
+    except OSError:
+        print("El archivo no se abrio correctamente")
+
 #---------------------------------------------------------------USUARIO----------------------------------------------------------------------
 def leerUsuario():
 
@@ -153,6 +162,7 @@ def transferir():
 #---------------------------------------------------------------REPORTES------------------------------------------------------------------
 
 def mostrarReportes():
+
 
 
 

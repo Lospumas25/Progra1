@@ -61,7 +61,21 @@ def crearCuenta():
         Log("Crea Cuenta")
         return True
 
-def login():
+def login ():
+    nombreUsuario = ingresarNombre ("ingrese su nombre de usuario, el usuario debe tener entre 4 y 12 caracteres", 4, 12)
+    contraseñaUsuario = ingresarContraseña ("ingrese su contraseña, la contraseña debe tener entre 4 y 12 caracteres", 4, 12)
+    try:
+       archivo = open ("Usuario.txt", "rt")
+    except IOError:
+        print ("error, no existen usuarios registrados")
+    linea = archivo.readline ()
+    linea = linea.strip("\n")
+    nombreRegistrado, contraseñaRegistrada = linea.split(";")
+    if (nombreRegistrado == nombreUsuario) and (contraseñaRegistrada == contraseñaUsuario):
+        aux = True
+    else:
+        aux = False
+    return aux 
 
 
 def modificarContraseña():
@@ -163,6 +177,7 @@ def transferir():
 #---------------------------------------------------------------REPORTES------------------------------------------------------------------
 
 def mostrarReportes():
+
 
 
 

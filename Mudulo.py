@@ -17,11 +17,12 @@ def Log(texto):
 
 #---------------------------------------------------------------USUARIO----------------------------------------------------------------------
 def leerUsuario():
-
+    return
 
 def escribirUsuario():
 
-    
+    return
+
 def ingresarNombre(texto,minimo,maximo):
     while True:
         try:
@@ -71,7 +72,7 @@ def login ():                    #DEVUELVE UN TRUE SI EL USUARIO Y CONTRASEÑA S
     nombreUsuario = ingresarNombre ("ingrese su nombre de usuario, el usuario debe tener entre 4 y 12 caracteres", 4, 12)
     contraseñaUsuario = ingresarContraseña ("ingrese su contraseña, la contraseña debe tener entre 4 y 12 caracteres", 4, 12)
     try:
-       archivo = open ("Usuario.txt", "rt")
+        archivo = open ("Usuario.txt", "rt")
     except IOError:
         print ("error, no existen usuarios registrados")
         Log("Error credenciales usuario no existentes")
@@ -114,9 +115,9 @@ def modificarContraseña():
         
 #---------------------------------------------------------------TARJETA---------------------------------------------------------------------
 def leerTarjetas():
-
+    return
 def escribirTarjetas():
-
+    return
 def tipoTarjeta():
     tipoTarjetas = ["VISA", "MASTERCARD", "AMEX"]
     while True:
@@ -137,13 +138,13 @@ def tipoTarjeta():
     return tipoTarjetas[tarjeta - 1]
 
 def agregarTarjeta():
-    
+    return
 
 def verTarjetas():
-
+    return
 
 def eliminarTarjeta():
-
+    return
 
 def validarCodigo(minimo, maximo, diccTarjetas):
     while True:
@@ -189,14 +190,47 @@ def tipoServicio():
 #---------------------------------------------------------------MOVIMIENTOS---------------------------------------------------------------
 
 def registrarMovimientos():
-
+    return
 def pagarServicio():
+    Log("Ingreso a pagar servicio")
+    servicios = ["Agua", "Gas", "Luz"]
+    valores = [random.randint(1000,40000), random.randint(1000,40000), random.randint(1000,40000)]
+    while True: 
+        try: 
+            print("Seleccione el servicio a pagar:")
+            for i in range(len(servicios)):
+                print(i + 1, servicios[i])
+
+            opcion = int(input(f"Ingrese el número del 1 al {len(servicios)}: "))
+
+            if opcion < 1 or opcion > len(servicios):
+                Log("Error ingreso tipo de servicio fuera de rango")
+                raise ValueError("Opción fuera de rango.")
+
+            print(f"Ha seleccionado pagar el servicio de {servicios[opcion - 1]}.")
+            Log(f'ingreso a pagar servicio {servicios[opcion - 1]}')
+            print("Debe pagar un monto de: ", valores[opcion - 1])
+
+            monto = float(input("Ingrese el monto que desea pagar: "))
+            if monto < 0 or monto > valores[opcion - 1]:
+                Log("Error ingreso monto a pagar fuera de rango")
+                raise ValueError("El monto ingresado es inválido.")
+            
+            restante = valores[opcion - 1] - monto
+            print(f"Pago realizado. Monto restante a pagar: {restante}")
+            Log(f'Monto: {monto} de servicio: {servicios[opcion - 1]} pagado exitosamente')
+            
+            break
+        except ValueError as e:
+            print("Entrada inválida.", e)
+
 
 def ingresarDinero():
-
+    return
 def transferir():
-
+    return
 
 #---------------------------------------------------------------REPORTES------------------------------------------------------------------
 
 def mostrarReportes():
+    return

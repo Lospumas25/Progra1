@@ -58,6 +58,7 @@ def crearCuenta():
         saldo = "0"
         archivoUsuario.write(str(nombre) + ";" + str(contraseña) + ";", + saldo + "\n")
         archivoUsuario.close()
+        Log("Crea Cuenta")
         return True
 
 def login():
@@ -162,6 +163,7 @@ def transferir():
 #---------------------------------------------------------------REPORTES------------------------------------------------------------------
 
 def mostrarReportes():
+
 
 
 

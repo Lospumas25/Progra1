@@ -27,9 +27,12 @@ def ingresarNombre(texto,minimo,maximo):
         try:
             nombre = input(texto).strip()
             if not nombre:
+                Log("Error ingreso de nombre vacio")
                 raise ValueError
             if len(nombre) < minimo or len(nombre) > maximo:
+                Log("Error ingreso de nombre no cumple con la longitud requerida")
                 raise ValueError
+            Log("Ingreso de nombre exitoso")
             break
         except ValueError:
             print(f"Ingreso erroneo: Tu nombre debe tener entre {minimo} y {maximo} caracteres.")
@@ -40,7 +43,9 @@ def ingresarContraseña(texto,minimo,maximo):
         try:
             contraseña = input(texto)
             if len(contraseña) < minimo or len(contraseña) > maximo:
+                Log("Error ingreso de contraseña no cumple con la longitud requerida")
                 raise ValueError
+            Log("Ingreso de contraseña exitoso")
             break
         except ValueError:
             print(f'Ingreso erroneo: la contraseña debe tener entre {minimo} y {maximo} caracteres.')
@@ -51,6 +56,7 @@ def crearCuenta():
         archivoUsuario = open("Usuario.txt", "wt")
     except OSError:
         print("Algo salio mal, no se pudo crear su cuenta.")
+        Log("Error al crear Archivo Usuario")
         return False
     else:
         nombre = ingresarNombre("Ingrese su nombre de usuario: ", 4, 12)
@@ -58,7 +64,7 @@ def crearCuenta():
         saldo = "0"
         archivoUsuario.write(str(nombre) + ";" + str(contraseña) + ";", + saldo + "\n")
         archivoUsuario.close()
-        Log("Crea Cuenta")
+        Log("Cuenta creada exitosamente")
         return True
 
 def login ():                    #DEVUELVE UN TRUE SI EL USUARIO Y CONTRASEÑA SON CORRECTOS, UN FALSE SI NO LO SON
@@ -68,6 +74,7 @@ def login ():                    #DEVUELVE UN TRUE SI EL USUARIO Y CONTRASEÑA S
        archivo = open ("Usuario.txt", "rt")
     except IOError:
         print ("error, no existen usuarios registrados")
+        Log("Error credenciales usuario no existentes")
     linea = archivo.readline ()
     linea = linea.strip("\n")
     nombreRegistrado, contraseñaRegistrada = linea.split(";")
@@ -83,6 +90,7 @@ def modificarContraseña():
         archivoUsuario = open("Usuario.txt", "rt")
     except OSError:
         print("Algo salio mal, no se pudo crear su cuenta.")
+        Log("Error al abrir Archivo Usuario para modificar contraseña")
         return False
     else:
         linea = archivoUsuario.readline()
@@ -90,15 +98,18 @@ def modificarContraseña():
         nombre,contraseña,saldo = linea.split(";")
         contraseña = ingresarContraseña("Ingrese su contraseña: ", 4, 12)
         archivoUsuario.close()
+        Log("Contraseña modificada exitosamente")
 
     try:
         archivoUsuario = open("Usuario.txt", "wt")
     except OSError:
         print("Algo salio mal, no se pudo crear su cuenta.")
+        Log("Error al abrir Archivo Usuario para guardar nueva contraseña")
         return False
     else:
         archivoUsuario.write(str(nombre) + ";" + str(contraseña) + ";", + saldo + "\n")
         archivoUsuario.close()
+        Log("Nueva contraseña guardada exitosamente")
         
         
 #---------------------------------------------------------------TARJETA---------------------------------------------------------------------
@@ -114,9 +125,13 @@ def tipoTarjeta():
             for i in range(len(tipoTarjetas)):
                 print(i + 1, tipoTarjetas[i])
             tarjeta = int(input(f"Ingrese el número del 1 al {len(tipoTarjetas)}: "))
+
             if tarjeta < 1 or tarjeta > len(tipoTarjetas):
+                Log("Error ingreso tipo de tarjeta fuera de rango")
                 raise ValueError("Opción fuera de rango.")
+            Log("Ingreso tipo de tarjeta exitoso")
             break
+        
         except ValueError as e:
             print("Entrada inválida.", e)
     return tipoTarjetas[tarjeta - 1]
@@ -135,15 +150,20 @@ def validarCodigo(minimo, maximo, diccTarjetas):
         try:
             codigo = input("Ingrese codigo de tarjeta: ").strip()
             if not codigo.isdigit():
+                Log("Error ingreso codigo de tarjeta con caracteres no numericos")
                 raise ValueError("El codigo debe contener solo digitos")
+
             if not (minimo <= len(codigo) <= maximo):
+                Log("Error ingreso codigo de tarjeta no cumple con la longitud requerida")
                 raise ValueError(f"El codigo debe tener entre {minimo} y {maximo} digitos")
+            
             if codigo in diccTarjetas:
+                Log("Error ingreso codigo de tarjeta ya existente")
                 raise ValueError("El código ya existe. Ingrese uno distinto")
             break
         except ValueError as mensaje:
             print(mensaje)
-        except:
+        except: #por que dos execept?ajasj
             print("Error inesperado")
     return codigo
 
@@ -156,8 +176,11 @@ def tipoServicio():
             for i in range(len(servicios)):
                 print(i + 1, f"Pagar {servicios[i]}")
             opcion = int(input(f"Ingrese el número del 1 al {len(servicios)}: "))
+
             if opcion < 1 or opcion > len(servicios):
+                Log("Error ingreso tipo de servicio fuera de rango")
                 raise ValueError("Opción fuera de rango.")
+            Log("Ingreso tipo de servicio exitoso")
             break
         except ValueError as e:
             print("Entrada inválida.", e)
@@ -177,25 +200,3 @@ def transferir():
 #---------------------------------------------------------------REPORTES------------------------------------------------------------------
 
 def mostrarReportes():
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

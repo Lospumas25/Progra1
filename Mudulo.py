@@ -55,8 +55,28 @@ def login():
 
 
 def modificarContrasenia():
-    
+    try:
+        archivoUsuario = open("Usuario.txt", "rt")
+    except OSError:
+        print("Algo salio mal, no se pudo crear su cuenta.")
+        return False
+    else:
+        linea = archivoUsuario.readline()
+        linea = linea.strip("\n")
+        nombre,contraseña,saldo = linea.split(";")
+        contraseña = ingresarContraseña("Ingrese su contraseña: ", 4, 12)
+        archivoUsuario.close()
 
+    try:
+        archivoUsuario = open("Usuario.txt", "wt")
+    except OSError:
+        print("Algo salio mal, no se pudo crear su cuenta.")
+        return False
+    else:
+        archivoUsuario.write(str(nombre) + ";" + str(contraseña) + ";", + saldo + "\n")
+        archivoUsuario.close()
+        
+        
 #---------------------------------------------------------------TARJETA---------------------------------------------------------------------
 def leerTarjetas():
 
@@ -133,6 +153,7 @@ def transferir():
 #---------------------------------------------------------------REPORTES------------------------------------------------------------------
 
 def mostrarReportes():
+
 
 
 

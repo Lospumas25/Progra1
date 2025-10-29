@@ -85,7 +85,12 @@ def login ():                    #DEVUELVE UN TRUE SI EL USUARIO Y CONTRASEÑA S
         aux = False
     return aux 
 
-
+def loopLogin ():  #LA MAIN EMPIEZA LLAMANDO ESTO DESPUES DE VERIFICAR QUE EXISTA USUARIO
+    while True:
+        correcto = login ()
+        if correcto == True:
+            break
+            
 def modificarContraseña():
     try:
         archivoUsuario = open("Usuario.txt", "rt")
@@ -235,5 +240,6 @@ def transferir():
 
 def mostrarReportes():
     return
+
 
 

@@ -16,10 +16,10 @@ def Log(texto):
         print("El archivo no se abrio correctamente")
 
 #---------------------------------------------------------------USUARIO----------------------------------------------------------------------
-def leerUsuario():
+def leerUsuario():  #para leer usuario del archivo
     return
 
-def escribirUsuario():
+def escribirUsuario(): #para guardar el usuario en el archivo
 
     return
 
@@ -235,4 +235,5 @@ def transferir():
 
 def mostrarReportes():
     return
+
 

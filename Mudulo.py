@@ -254,6 +254,11 @@ def mostrarReportes():
     return
 
 
+def calcularPlazoFijo (saldo, meses): #NECESITAMOS RECURSIVIDAD EN ESTA VIDA
+    extra = saldo * 0.05
+    if meses == 0:
+        return extra
+    return calcularPlazoFijo (saldo + extra, meses -1)
 
 
 

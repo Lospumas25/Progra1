@@ -63,7 +63,7 @@ def crearCuenta():
         nombre = ingresarNombre("Ingrese su nombre de usuario: ", 4, 12)
         contraseña = ingresarContraseña("Ingrese su contraseña: ", 4, 12)
         saldo = "0"
-        archivoUsuario.write(str(nombre) + ";" + str(contraseña) + ";", + saldo + "\n")
+        archivoUsuario.write(str(nombre) + ";" + str(contraseña) + ";" + saldo + "\n")
         archivoUsuario.close()
         Log("Cuenta creada exitosamente")
         return True
@@ -259,6 +259,7 @@ def calcularPlazoFijo (saldo, meses): #NECESITAMOS RECURSIVIDAD EN ESTA VIDA
     if meses == 0:
         return extra
     return calcularPlazoFijo (saldo + extra, meses -1)
+
 
 
 

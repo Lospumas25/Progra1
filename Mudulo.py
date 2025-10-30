@@ -1,7 +1,7 @@
 import random
 from datetime import datetime
 
-""" FALTA LAMBDA / LISTA COMPRENSION / SLICING / RANDOM / DICCIONARIOS / RECURSIVIDAD """
+""" FALTA LAMBDA / LISTA COMPRENSION / SLICING  DICCIONARIOS / RECURSIVIDAD """
 #---------------------------------------------------------------LOG--------------------------------------------------------------------------
 
 def Log(texto):
@@ -240,6 +240,7 @@ def transferir():
 
 def mostrarReportes():
     return
+
 
 
 

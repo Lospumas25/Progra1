@@ -1,6 +1,10 @@
 def main ():
-    #VERIFICAR EXISTENCIA DE USUARIO
+    existe = verificarExistenciaUsuario ()
+    if existe == False:
+        crearCuenta ()
     loopLogin ()
+    
     
 
     #mostrar menu
+

@@ -75,7 +75,9 @@ def verificarExistenciaUsuario (): #verifica la existencia del archivo Usuario
     except IOError:
         Log ("fallo al abrir el archivo")
         existe = False
-    else: existe = True
+    else: 
+        arch.close()
+        existe = True
     return existe
 
 
@@ -259,6 +261,7 @@ def calcularPlazoFijo (saldo, meses): #NECESITAMOS RECURSIVIDAD EN ESTA VIDA
     if meses == 0:
         return extra
     return calcularPlazoFijo (saldo + extra, meses -1)
+
 
 
 

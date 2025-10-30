@@ -68,6 +68,18 @@ def crearCuenta():
         Log("Cuenta creada exitosamente")
         return True
 
+
+def verificarExistenciaUsuario (): #verifica la existencia del archivo Usuario
+    try:
+        arch = open ("Usuario.txt", "rt")
+    except IOError:
+        Log ("fallo al abrir el archivo")
+        existe = False
+    else: existe = True
+    return existe
+
+
+
 def login ():                    #DEVUELVE UN TRUE SI EL USUARIO Y CONTRASEÑA SON CORRECTOS, UN FALSE SI NO LO SON
     nombreUsuario = ingresarNombre ("ingrese su nombre de usuario, el usuario debe tener entre 4 y 12 caracteres", 4, 12)
     contraseñaUsuario = ingresarContraseña ("ingrese su contraseña, la contraseña debe tener entre 4 y 12 caracteres", 4, 12)
@@ -240,6 +252,7 @@ def transferir():
 
 def mostrarReportes():
     return
+
 
 
 

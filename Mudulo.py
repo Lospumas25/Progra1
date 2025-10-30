@@ -212,6 +212,7 @@ def pagarServicio():
     Log("Ingreso a pagar servicio")
     servicios = ["Agua", "Gas", "Luz"]
     valores = [random.randint(1000,40000), random.randint(1000,40000), random.randint(1000,40000)]
+    valores = [n, n = random.randint(1000,40000) for i in range(3)]
     while True: 
         try: 
             print("Seleccione el servicio a pagar:")
@@ -259,6 +260,7 @@ def calcularPlazoFijo (saldo, meses): #NECESITAMOS RECURSIVIDAD EN ESTA VIDA
     if meses == 0:
         return extra
     return calcularPlazoFijo (saldo + extra, meses -1)
+
 
 
 

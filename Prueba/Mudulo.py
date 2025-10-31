@@ -238,6 +238,7 @@ def validarCodigo(minimo, maximo, diccTarjetas):
     return codigo
 
 
+
 def agregarTarjeta():
     tarjetas = leerTarjetas()
     codigo = validarCodigo(4, 8, tarjetas)
@@ -251,9 +252,13 @@ def agregarTarjeta():
     while True:
         vencimiento = input("Ingrese la fecha de vencimiento (MM/AA): ").strip()
         if len(vencimiento) == 5 and vencimiento[2] == "/" and vencimiento.replace("/", "").isdigit():
-            break
-        print("Formato de vencimiento inválido.")
-
+            mes, año = vencimiento.split("/")
+            if 1 <= int(mes) <= 12:
+                break
+            else:
+                print("Mes inválido en la fecha de vencimiento.")
+        else:
+            print("Formato inválido. Use MM/AA.")
     tarjetas[codigo] = {
         "tipo": tipo,
         "numero": numero,
@@ -263,6 +268,7 @@ def agregarTarjeta():
     if escribirTarjetas(tarjetas):
         Log(f"Tarjeta {codigo} agregada")
         print("Tarjeta agregada correctamente.")
+
 
 
 def verTarjetas():

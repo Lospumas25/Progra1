@@ -11,11 +11,6 @@ Kiwillet es una aplicación de consola escrita en Python que simula el funcionam
 - **Reportes**: resumen de los últimos movimientos, totales de ingresos/egresos y saldo promedio. Toda actividad queda auditada en un archivo de log.
 - **Simulación financiera**: cálculo recursivo de un plazo fijo con tasa fija mensual, útil para estimar ganancias futuras con el saldo actual.
 
-## Requisitos
-
-- Python 3.10 o superior.
-- No se requieren dependencias externas; el proyecto utiliza únicamente módulos estándar (`datetime` y `random`).
-
 ## Estructura del proyecto
 
 ```
@@ -55,27 +50,10 @@ La aplicación persiste la información en archivos de texto ubicados en el mism
 - **Simulación** (`calcularPlazoFijo`, `simularPlazoFijo`): proyección recursiva del crecimiento del saldo.
 - **Menú y arranque** (`menuPrincipal`, `iniciarAplicacion`): orquestan la interacción con el usuario y el ciclo de vida de la aplicación.
 
-## Cómo ejecutar la aplicación
 
-Desde la raíz del proyecto:
-
-```bash
-python Main.py
-```
-
-Siga las instrucciones mostradas en consola para crear la cuenta inicial (si aún no existe) e iniciar sesión. Utilice el menú para realizar las distintas operaciones de la billetera virtual. Los archivos de datos se crearán automáticamente en el directorio cuando corresponda.
-
-## Mantenimiento y futuras mejoras
-
-- Permitir múltiples usuarios y manejo de sesiones independientes.
-- Integrar validaciones más estrictas para formatos de tarjetas y servicios.
-- Incorporar pruebas automatizadas y cobertura de errores para entradas inválidas.
-- Migrar el almacenamiento a una base de datos ligera (por ejemplo, SQLite) para mejorar la integridad de los datos.
-
----
 
 **Autores originales**
 
-- Massun, Felipe
+- Massun, Felipe (LU )
 - Scala Merani, Damián (LU 1139436)
 - Arias Castroman, Santiago (LU 1224594)

@@ -271,7 +271,7 @@ def verTarjetas():
         print("No hay tarjetas registradas.")
         return
 
-    tarjetas_ordenadas = sorted(tarjetas.items(), key=lambda item: item[1]["tipo"])
+    tarjetas_ordenadas = sorted(tarjetas.items(), key=lambda item: item[1]["tipo"]) #LAMBDA
     for codigo, datos in tarjetas_ordenadas:
         numero_visible = f"**** **** **** {datos['numero'][-4:]}"
         print(f"Código: {codigo} - Tipo: {datos['tipo']} - Número: {numero_visible} - Titular: {datos['titular']} - Vencimiento: {datos['vencimiento']}")

@@ -1,120 +1,81 @@
-UNIVERSIDAD ARGENTINA DE LA EMPRESA (UADE)
+# Kiwillet – Billetera Virtual Local
 
-KIWILLET
-Billetera virtual – Proyecto de Programación I
+Kiwillet es una aplicación de consola escrita en Python que simula el funcionamiento básico de una billetera virtual ejecutada de forma local. Permite crear una única cuenta de usuario y administrar tarjetas, movimientos, pagos de servicios y reportes financieros, almacenando toda la información en archivos de texto plano.
 
+## Características principales
 
-Carrera: Ingeniería en Informática
+- **Gestión de usuario**: creación de la cuenta inicial, inicio de sesión, cambio de contraseña y consulta de saldo disponible.
+- **Movimientos**: registro de ingresos de dinero, transferencias y pagos realizados, con detalle de fecha, descripción, monto y saldo resultante.
+- **Pagos de servicios**: cálculo y pago parcial o total de servicios básicos (Agua, Gas y Luz) con validaciones de saldo disponible.
+- **Tarjetas**: alta, baja y consulta de tarjetas, clasificadas por tipo y con visualización parcial del número para proteger la información sensible.
+- **Reportes**: resumen de los últimos movimientos, totales de ingresos/egresos y saldo promedio. Toda actividad queda auditada en un archivo de log.
+- **Simulación financiera**: cálculo recursivo de un plazo fijo con tasa fija mensual, útil para estimar ganancias futuras con el saldo actual.
 
-Materia: Programación I / Algoritmos y Estructura de Datos I
+## Requisitos
 
-Profesor/a: Ing. María Eugenia Varando
+- Python 3.10 o superior.
+- No se requieren dependencias externas; el proyecto utiliza únicamente módulos estándar (`datetime` y `random`).
 
-Turno: Noche – 2° Cuatrimestre 2025
+## Estructura del proyecto
 
+```
+Progra1/
+├── Main.py        # Punto de entrada: inicia la aplicación y delega en Mudulo.py
+├── Mudulo.py      # Lógica principal de la billetera virtual
+└── README.md      # Documentación del proyecto
+```
 
+### Archivos generados en tiempo de ejecución
 
+La aplicación persiste la información en archivos de texto ubicados en el mismo directorio:
 
+- `Usuario.txt`: almacena nombre de usuario, contraseña y saldo disponible en formato `nombre;contraseña;saldo`.
+- `Tarjetas.txt`: guarda cada tarjeta registrada con su código, tipo, número, titular y fecha de vencimiento.
+- `Movimientos.txt`: registra los movimientos financieros con fecha ISO, descripción, monto y saldo final.
+- `ArchivoLog.txt`: bitácora que almacena cada acción relevante del sistema con sello de tiempo.
 
-Integrantes
-• Massun, Felipe / 
-• Scala Merani, Damián / 1139436
-• Arias Castroman, Santiago / 1224594
+## Flujo de ejecución
 
+1. **Inicio**: `Main.py` importa `Mudulo.py` y ejecuta `iniciarAplicacion()`.
+2. **Creación de cuenta**: si no existe `Usuario.txt`, se solicita crear un usuario (nombre, contraseña y saldo inicial cero).
+3. **Autenticación**: el usuario debe iniciar sesión con sus credenciales para acceder al menú principal.
+4. **Menú principal**: desde aquí se pueden ejecutar las distintas operaciones disponibles (consultar saldo, ingresar dinero, transferir, pagar servicios, administrar tarjetas, cambiar contraseña, ver reportes y simular un plazo fijo).
+5. **Persistencia**: cada operación válida actualiza los archivos correspondientes y deja registro en la bitácora.
 
-Descripción general del proyecto:
+## Organización del código (`Mudulo.py`)
 
-Kiwillet busca simular el funcionamiento básico de una billetera virtual, pero ejecutada de forma local, todos los datos y registros se manejan en archivos de texto. El programa permite a un único usuario crear su cuenta, iniciar sesión, administrar sus tarjetas, realizar pagos de servicios, efectuar transferencias, ingresar dinero y consultar su saldo.
-Objetivos:
-Kiwillet tiene como objetivo hacer una billetera virtual que permita al usuario gestionar sus finanzas de forma simple y rápida.
-Los objetivos del programa son:
-Que el usuario pueda visualizar su saldo, registrar ingresos y egresos, y realizar pagos de servicios.
-Mostrar las tarjetas registradas por el usuario además de poder dar el alta y  baja de cada tarjeta.
-Sistema de pagos de servicios.
-Registrar la actividad del usuario en archivos locales.
-Seguridad de los datos del usuario, mediante contraseñas, validaciones de ingreso y control de errores en tiempo de ejecución.
-Mostrar informes que permitan al usuario conocer el saldo, pagos realizados y movimientos en la cuenta.
-Alcance funcional del sistema:
+`Mudulo.py` agrupa las funciones en bloques temáticos, separados por comentarios para facilitar su lectura:
 
-Archivos de entrada: 
-User DICCIONARIO: 
-nombre de usuario
-password
-Saldo disponible
+- **Log** (`Log`): gestiona la escritura de eventos en `ArchivoLog.txt`.
+- **Usuario** (`leerUsuario`, `escribirUsuario`, `crearCuenta`, `login`, `loopLogin`, `mostrarSaldo`, `modificarContraseña`): manejo de credenciales y saldo.
+- **Tarjetas** (`leerTarjetas`, `escribirTarjetas`, `agregarTarjeta`, `verTarjetas`, `eliminarTarjeta`, `menuTarjetas`): operaciones CRUD sobre las tarjetas asociadas.
+- **Servicios** (`pagarServicio`): selección y pago de servicios básicos con control de saldo.
+- **Movimientos** (`registrarMovimientos`, `obtenerMovimientos`, `ingresarDinero`, `transferir`): registro y consulta de transacciones financieras.
+- **Reportes** (`mostrarReportes`): generación de un resumen y listado de los últimos movimientos.
+- **Simulación** (`calcularPlazoFijo`, `simularPlazoFijo`): proyección recursiva del crecimiento del saldo.
+- **Menú y arranque** (`menuPrincipal`, `iniciarAplicacion`): orquestan la interacción con el usuario y el ciclo de vida de la aplicación.
 
-Tarjetas DICCIONARIO 
-CódigoTarjeta/ID
-Fecha caducidad
-Nombre de titular
-código de seguridad
+## Cómo ejecutar la aplicación
 
-Tipos de tarjetas (Diccionario)
-nombre de usuario/ID
-CódigoTarjeta/ID
+Desde la raíz del proyecto:
 
-Servicios (Diccionarios)
-Código de servicio  
-Nombre de servicio
+```bash
+python Main.py
+```
 
+Siga las instrucciones mostradas en consola para crear la cuenta inicial (si aún no existe) e iniciar sesión. Utilice el menú para realizar las distintas operaciones de la billetera virtual. Los archivos de datos se crearán automáticamente en el directorio cuando corresponda.
 
-Archivos de salida 
+## Mantenimiento y futuras mejoras
 
--Bitácora (Log) Almacena todos los inputs con fecha y hora
+- Permitir múltiples usuarios y manejo de sesiones independientes.
+- Integrar validaciones más estrictas para formatos de tarjetas y servicios.
+- Incorporar pruebas automatizadas y cobertura de errores para entradas inválidas.
+- Migrar el almacenamiento a una base de datos ligera (por ejemplo, SQLite) para mejorar la integridad de los datos.
 
-Pagos Diccionario
-Gastos Diccionario
-Estadística de saldo por dia (resumen al final del mes)
-lista de saldo por dia
+---
 
+**Autores originales**
 
-Menu
-0 El Login
-1 modificar usuario 
-2 pago de servicios
-3 ver tarjetas 
-4 transferencias 
-5 ingresar dinero 
-6 salir
-
-
-1-LOGIN
-1.1-Crear usuario
-1.3-Loguearse
-
-2- MENU PRINCIPAL
-
-2.1- Tarjetas
-	2.1.1- ver tarjetas
-2.1.1.1- muestra de tarjetas (muestra el tipo, “crédito       santander, debito MP”, etc)
-		2.1.1.2- elige con 1…n la tarjeta para ver sus datos completos
-
-		2.1.2- agregar tarjeta
-			2.1.2.1- ingresar código
-			2.1.2.2- ingresar fecha de caducidad
-			2.1.2.3- ingresar codigo de seguridad
-			2.1.2.4- ingresar nombre de titular
-			2.1.2.5- ingresar tipo de tarjeta 
-		2.1.3-eliminar tarjeta
-
-	2.2 pago de servicios 
-		2.2.1 Pagar Agua → ingrese monto
-		2.2.2 Pagar Gas → ingrese monto 
-		2.2.3 Pagar Luz → ingrese monto
-
-	2.3 Modificar Cuenta 
-		2.2.1 Cambiar contraseña → ingrese contraseña
-
-	2.4 Ingresar Dinero 
-2.4.1 Cuenta 
-2.4.2 Monto		
-
-	2.4 Salir 
-
-Reportes esperados:
-1. Informe estadístico con:
-   - Promedios de saldo.
-   - Total de gastos y pagos.
-   - Servicios más pagados.
-   - Evolución del saldo.
-2. Archivo LOG con todos los movimientos realizados.
-3. Resumen mensual de movimientos y balances.
+- Massun, Felipe
+- Scala Merani, Damián (LU 1139436)
+- Arias Castroman, Santiago (LU 1224594)

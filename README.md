@@ -54,6 +54,6 @@ La aplicación persiste la información en archivos de texto ubicados en el mism
 
 **Autores originales**
 
-- Massun, Felipe (LU )
+- Massun, Felipe (LU 1195389 )
 - Scala Merani, Damián (LU 1139436)
 - Arias Castroman, Santiago (LU 1224594)

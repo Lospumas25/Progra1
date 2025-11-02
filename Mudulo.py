@@ -522,6 +522,36 @@ def mostrarReportes():
         print(f"Total de ingresos: ${ingresos:.2f}")
         print(f"Total de egresos: ${egresos:.2f}")
 
+        ingresos_registrados = [mov["monto"] for mov in movimientos_ordenados if mov["monto"] > 0]
+        egresos_registrados = [mov["monto"] for mov in movimientos_ordenados if mov["monto"] < 0]
+
+        if ingresos_registrados:
+            mayor_ingreso = max(ingresos_registrados)
+            menor_ingreso = min(ingresos_registrados)
+            promedio_ingresos = sum(ingresos_registrados) / len(ingresos_registrados)
+            print("\n--- Detalle de ingresos ---")
+            print(f"Ingreso más alto: ${mayor_ingreso:.2f}")
+            print(f"Ingreso más bajo: ${menor_ingreso:.2f}")
+            print(f"Promedio de ingresos: ${promedio_ingresos:.2f}")
+
+        if egresos_registrados:
+            egresos_absolutos = [abs(mov) for mov in egresos_registrados]
+            mayor_egreso = max(egresos_absolutos)
+            menor_egreso = min(egresos_absolutos)
+            promedio_egresos = sum(egresos_absolutos) / len(egresos_absolutos)
+            print("\n--- Detalle de egresos ---")
+            print(f"Egreso más alto: ${mayor_egreso:.2f}")
+            print(f"Egreso más bajo: ${menor_egreso:.2f}")
+            print(f"Promedio de egresos: ${promedio_egresos:.2f}")
+
+        total_movimientos = ingresos + egresos
+        if total_movimientos > 0:
+            porcentaje_ingresos = (ingresos / total_movimientos) * 100
+            porcentaje_egresos = (egresos / total_movimientos) * 100
+            print("\n--- Porcentajes ---")
+            print(f"Ingresos: {porcentaje_ingresos:.2f}% del total de movimientos")
+            print(f"Egresos: {porcentaje_egresos:.2f}% del total de movimientos")
+
         Log("Visualización de reportes")
         mostrado = True
 

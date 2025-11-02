@@ -6,5 +6,5 @@ Kiwillet es una billetera virtual creada como proyecto académico. Permite gesti
 
 ## Autores
 - Massun, Felipe (LU 1195389)
-- Scala Merani, Damin (LU 1139436)
+- Scala Merani, Damian (LU 1139436)
 - Arias Castroman, Santiago (LU 1224594)

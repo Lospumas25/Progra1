@@ -2,7 +2,6 @@ import random
 from datetime import datetime
 
 #---------------------------------------------------------------LOG-------------------------------------------------------------
-# -------------
 
 def Log(texto):
     tiempo = datetime.now().isoformat()
@@ -13,42 +12,39 @@ def Log(texto):
         print("El archivo no se abrio correctamente")
 
 #---------------------------------------------------------------USUARIO---------------------------------------------------------
-# -------------
 def leerUsuario():
     try:
         with open("Usuario.txt", "rt") as archivoUsuario:
             linea = archivoUsuario.readline().strip()
     except OSError:
         Log("Error al leer Archivo Usuario")
-        return None
 
     if not linea:
         Log("Archivo Usuario vacio")
-        return None
 
     try:
         nombre, contraseña, saldo = linea.split(";")
         saldo = float(saldo)
     except ValueError:
         Log("Formato incorrecto en Archivo Usuario")
-        return None
 
     return {"nombre": nombre, "contraseña": contraseña, "saldo": saldo}
 
 
 def escribirUsuario(usuario):
+    exito = False
     if not usuario:
-        return False
+        return exito
     try:
         with open("Usuario.txt", "wt") as archivoUsuario:
             archivoUsuario.write(f"{usuario['nombre']};{usuario['contraseña']};{usuario['saldo']:.2f}\n")
+        Log("Datos de usuario guardados")
+        exito = True
     except OSError:
         Log("Error al escribir Archivo Usuario")
-        print("No se pudo guardar la informacion del usuario.")
-        return False
-    Log("Datos de usuario guardados")
-    return True
-
+        print("No se pudo guardar la información del usuario.")
+    return exito
+    
 
 def ingresarNombre(texto, minimo, maximo):
     while True:
@@ -82,14 +78,19 @@ def ingresarContraseña(texto, minimo, maximo):
 
 
 def crearCuenta():
+    creada = False
     nombre = ingresarNombre("Ingrese su nombre de usuario: ", 4, 12)
     contraseña = ingresarContraseña("Ingrese su contraseña: ", 4, 12)
     usuario = {"nombre": nombre, "contraseña": contraseña, "saldo": 0.0}
+
     if escribirUsuario(usuario):
         Log("Cuenta creada exitosamente")
         print("Cuenta creada exitosamente. Ya puede iniciar sesión.")
-        return True
-    return False
+        creada = True
+    else:
+        Log("Error al crear cuenta")
+
+    return creada
 
 
 def verificarExistenciaUsuario():
@@ -103,22 +104,25 @@ def verificarExistenciaUsuario():
 
 
 def login():
+    logueado = False
     usuario_registrado = leerUsuario()
     if not usuario_registrado:
         print("No existen usuarios registrados. Cree una cuenta primero.")
         Log("Error credenciales usuario no existentes")
-        return False
+        return logueado
 
     nombreUsuario = ingresarNombre("Ingrese su nombre de usuario (4 a 12 caracteres): ", 4, 12)
     contraseñaUsuario = ingresarContraseña("Ingrese su contraseña (4 a 12 caracteres): ", 4, 12)
 
     if (usuario_registrado["nombre"] == nombreUsuario) and (usuario_registrado["contraseña"] == contraseñaUsuario):
         Log("Login exitoso")
-        return True
+        logueado = True
+    else:
+        Log("Login fallido - credenciales incorrectas")
+        print("Usuario o contraseña incorrectos.")
 
-    Log("Login fallido - credenciales incorrectas")
-    print("Usuario o contraseña incorrectos.")
-    return False
+    return logueado
+
 
 
 def loopLogin():
@@ -134,25 +138,33 @@ def mostrarSaldo(usuario):
 
 
 def modificarContraseña():
+    modificada = False
+
     usuario = leerUsuario()
     if not usuario:
         print("No hay usuario registrado.")
-        return
+        Log("Intento de modificación sin usuario registrado")
+    else:
+        contraseña_actual = ingresarContraseña("Ingrese su contraseña actual: ", 4, 12)
+        if contraseña_actual != usuario["contraseña"]:
+            print("La contraseña actual no es correcta.")
+            Log("Intento fallido de cambio de contraseña")
+        else:
+            nueva_contraseña = ingresarContraseña("Ingrese su nueva contraseña: ", 4, 12)
+            usuario["contraseña"] = nueva_contraseña
 
-    contraseña_actual = ingresarContraseña("Ingrese su contraseña actual: ", 4, 12)
-    if contraseña_actual != usuario["contraseña"]:
-        print("La contraseña actual no es correcta.")
-        Log("Intento fallido de cambio de contraseña")
-        return
+            if escribirUsuario(usuario):
+                Log("Contraseña modificada exitosamente")
+                print("Contraseña actualizada correctamente.")
+                modificada = True
+            else:
+                Log("Error al intentar actualizar contraseña")
+                print("No se pudo actualizar la contraseña.")
 
-    nueva_contraseña = ingresarContraseña("Ingrese su nueva contraseña: ", 4, 12)
-    usuario["contraseña"] = nueva_contraseña
-    if escribirUsuario(usuario):
-        Log("Contraseña modificada exitosamente")
-        print("Contraseña actualizada.")
+    return modificada
+
 
 #---------------------------------------------------------------TARJETA---------------------------------------------------------
-# ------------
 
 def leerTarjetas():
     tarjetas = {}
@@ -181,18 +193,19 @@ def leerTarjetas():
 
 
 def escribirTarjetas(tarjetas):
+    guardadas = False
     try:
         with open("Tarjetas.txt", "wt") as archivoTarjetas:
             for codigo, datos in tarjetas.items():
                 archivoTarjetas.write(
-                    f"{codigo};{datos['tipo']};{datos['numero']};{datos['titular']};{datos['vencimiento']}\n"
-                )
+                    f"{codigo};{datos['tipo']};{datos['numero']};{datos['titular']};{datos['vencimiento']}\n")
+        Log("Tarjetas guardadas correctamente")
+        guardadas = True
     except OSError:
         Log("Error al escribir Archivo Tarjetas")
         print("No se pudieron guardar las tarjetas.")
-        return False
-    Log("Tarjetas guardadas correctamente")
-    return True
+    return guardadas
+
 
 
 def tipoTarjeta():
@@ -238,7 +251,6 @@ def validarCodigo(minimo, maximo, diccTarjetas):
     return codigo
 
 
-
 def agregarTarjeta():
     tarjetas = leerTarjetas()
     codigo = validarCodigo(4, 8, tarjetas)
@@ -272,16 +284,25 @@ def agregarTarjeta():
 
 
 def verTarjetas():
+    mostradas = False 
     tarjetas = leerTarjetas()
     if not tarjetas:
         print("No hay tarjetas registradas.")
-        return
+        Log("Intento de visualizar tarjetas sin registros")
+    else:
+        tarjetas_ordenadas = sorted(
+            tarjetas.items(),
+            key=lambda item: item[1]["tipo"] )   # LAMBDA
 
-    tarjetas_ordenadas = sorted(tarjetas.items(), key=lambda item: item[1]["tipo"]) #LAMBDA
-    for codigo, datos in tarjetas_ordenadas:
-        numero_visible = f"**** **** **** {datos['numero'][-4:]}"
-        print(f"Código: {codigo} - Tipo: {datos['tipo']} - Número: {numero_visible} - Titular: {datos['titular']} - Vencimiento: {datos['vencimiento']}")
-    Log("Visualización de tarjetas")
+        for codigo, datos in tarjetas_ordenadas:
+            numero_visible = f"**** **** **** {datos['numero'][-4:]}"
+            print(
+                f"Código: {codigo} - Tipo: {datos['tipo']} - Número: {numero_visible} - "
+                f"Titular: {datos['titular']} - Vencimiento: {datos['vencimiento']}")
+        Log("Visualización de tarjetas")
+        mostradas = True
+
+    return mostradas
 
 
 def eliminarTarjeta():
@@ -322,55 +343,58 @@ def menuTarjetas():
             print("Opción inválida.")
 
 #---------------------------------------------------------------SERVICIOS-------------------------------------------------------
-# ----------
 
 def pagarServicio():
+    pagado = False 
     usuario = leerUsuario()
     if not usuario:
         print("No hay usuario registrado.")
-        return
+        Log("Intento de pagar servicio sin usuario")
+    else:
+        Log("Ingreso a pagar servicio")
+        servicios = {nombre: random.randint(1000, 40000) for nombre in ("Agua", "Gas", "Luz")}
+        nombres_servicio = list(servicios.keys())
 
-    Log("Ingreso a pagar servicio")
-    servicios = {nombre: random.randint(1000, 40000) for nombre in ("Agua", "Gas", "Luz")}
-    nombres_servicio = list(servicios.keys())
+        while True:
+            try:
+                print("Seleccione el servicio a pagar:")
+                for indice, nombre in enumerate(nombres_servicio, start=1):
+                    print(f"{indice}. {nombre} - Total adeudado: ${servicios[nombre]}")
+                opcion = int(input(f"Ingrese el número del 1 al {len(nombres_servicio)}: "))
+                if opcion < 1 or opcion > len(nombres_servicio):
+                    Log("Error ingreso tipo de servicio fuera de rango")
+                    raise ValueError("Opción fuera de rango.")
+                servicio_elegido = nombres_servicio[opcion - 1]
+                monto_pendiente = servicios[servicio_elegido]
+                break
+            except ValueError as e:
+                print("Entrada inválida.", e)
 
-    while True:
-        try:
-            print("Seleccione el servicio a pagar:")
-            for indice, nombre in enumerate(nombres_servicio, start=1):
-                print(f"{indice}. {nombre} - Total adeudado: ${servicios[nombre]}")
-            opcion = int(input(f"Ingrese el número del 1 al {len(nombres_servicio)}: "))
-            if opcion < 1 or opcion > len(nombres_servicio):
-                Log("Error ingreso tipo de servicio fuera de rango")
-                raise ValueError("Opción fuera de rango.")
-            servicio_elegido = nombres_servicio[opcion - 1]
-            monto_pendiente = servicios[servicio_elegido]
-            break
-        except ValueError as e:
-            print("Entrada inválida.", e)
+        while True:
+            try:
+                monto = float(input("Ingrese el monto que desea pagar: "))
+                if monto <= 0 or monto > monto_pendiente:
+                    Log("Error ingreso monto a pagar fuera de rango")
+                    raise ValueError("El monto ingresado es inválido.")
+                if monto > usuario["saldo"]:
+                    Log("Error saldo insuficiente para pagar servicio")
+                    raise ValueError("Saldo insuficiente.")
+                break
+            except ValueError as e:
+                print("Entrada inválida.", e)
 
-    while True:
-        try:
-            monto = float(input("Ingrese el monto que desea pagar: "))
-            if monto <= 0 or monto > monto_pendiente:
-                Log("Error ingreso monto a pagar fuera de rango")
-                raise ValueError("El monto ingresado es inválido.")
-            if monto > usuario["saldo"]:
-                Log("Error saldo insuficiente para pagar servicio")
-                raise ValueError("Saldo insuficiente.")
-            break
-        except ValueError as e:
-            print("Entrada inválida.", e)
+        usuario["saldo"] -= monto
+        escribirUsuario(usuario)
+        registrarMovimientos(f"Pago de {servicio_elegido}", -monto, usuario["saldo"])
+        restante = monto_pendiente - monto
+        print(f"Pago realizado. Monto restante a pagar de {servicio_elegido}: {restante}")
+        Log(f"Monto: {monto} de servicio: {servicio_elegido} pagado exitosamente")
+        pagado = True
 
-    usuario["saldo"] -= monto
-    escribirUsuario(usuario)
-    registrarMovimientos(f"Pago de {servicio_elegido}", -monto, usuario["saldo"])
-    restante = monto_pendiente - monto
-    print(f"Pago realizado. Monto restante a pagar de {servicio_elegido}: {restante}")
-    Log(f"Monto: {monto} de servicio: {servicio_elegido} pagado exitosamente")
+    return pagado
+
 
 #---------------------------------------------------------------MOVIMIENTOS-----------------------------------------------------
-# ----------
 
 def registrarMovimientos(descripcion, monto, saldo_final):
     registro = f"{datetime.now().isoformat()};{descripcion};{monto:.2f};{saldo_final:.2f}"
@@ -412,112 +436,143 @@ def obtenerMovimientos():
 
 
 def ingresarDinero():
+    ingresado = False
+
     usuario = leerUsuario()
     if not usuario:
         print("No hay usuario registrado.")
-        return
+        Log("Intento de ingresar dinero sin usuario registrado")
+    else:
+        while True:
+            try:
+                monto = float(input("Ingrese el monto a acreditar: "))
+                if monto <= 0:
+                    raise ValueError("El monto debe ser mayor a cero.")
+                break
+            except ValueError as e:
+                print("Entrada inválida.", e)
+        usuario["saldo"] += monto
+        if escribirUsuario(usuario):
+            registrarMovimientos("Ingreso de dinero", monto, usuario["saldo"])
+            print(f"Ingreso registrado. Nuevo saldo: ${usuario['saldo']:.2f}")
+            Log(f"Ingreso de dinero por ${monto:.2f}")
+            ingresado = True
+        else:
+            Log("Error al intentar registrar ingreso de dinero")
+            print("No se pudo guardar el ingreso.")
+    return ingresado
 
-    while True:
-        try:
-            monto = float(input("Ingrese el monto a acreditar: "))
-            if monto <= 0:
-                raise ValueError("El monto debe ser mayor a cero")
-            break
-        except ValueError as e:
-            print("Entrada inválida.", e)
-
-    usuario["saldo"] += monto
-    if escribirUsuario(usuario):
-        registrarMovimientos("Ingreso de dinero", monto, usuario["saldo"])
-        print(f"Ingreso registrado. Nuevo saldo: ${usuario['saldo']:.2f}")
-        Log(f"Ingreso de dinero por {monto}")
 
 
 def transferir():
+    transferida = False
     usuario = leerUsuario()
     if not usuario:
         print("No hay usuario registrado.")
-        return
+        Log("Intento de transferencia sin usuario registrado")
+    else:
+        destinatario = ingresarNombre("Ingrese el alias del destinatario: ", 3, 20)
 
-    destinatario = ingresarNombre("Ingrese el alias del destinatario: ", 3, 20)
-    while True:
-        try:
-            monto = float(input("Ingrese el monto a transferir: "))
-            if monto <= 0:
-                raise ValueError("El monto debe ser mayor a cero")
-            if monto > usuario["saldo"]:
-                raise ValueError("Saldo insuficiente")
-            break
-        except ValueError as e:
-            print("Entrada inválida.", e)
+        while True:
+            try:
+                monto = float(input("Ingrese el monto a transferir: "))
+                if monto <= 0:
+                    raise ValueError("El monto debe ser mayor a cero.")
+                if monto > usuario["saldo"]:
+                    raise ValueError("Saldo insuficiente.")
+                break
+            except ValueError as e:
+                print("Entrada inválida.", e)
 
-    usuario["saldo"] -= monto
-    if escribirUsuario(usuario):
-        registrarMovimientos(f"Transferencia a {destinatario}", -monto, usuario["saldo"])
-        print(f"Transferencia realizada. Nuevo saldo: ${usuario['saldo']:.2f}")
-        Log(f"Transferencia realizada a {destinatario} por {monto}")
+        usuario["saldo"] -= monto
+        if escribirUsuario(usuario):
+            registrarMovimientos(f"Transferencia a {destinatario}", -monto, usuario["saldo"])
+            print(f"Transferencia realizada. Nuevo saldo: ${usuario['saldo']:.2f}")
+            Log(f"Transferencia realizada a {destinatario} por ${monto:.2f}")
+            transferida = True
+        else:
+            Log("Error al intentar guardar transferencia")
+            print("No se pudo completar la transferencia.")
+
+    return transferida
+
 
 #---------------------------------------------------------------REPORTES--------------------------------------------------------
-# ----------
 
 def mostrarReportes():
+    mostrado = False
+
     movimientos = obtenerMovimientos()
     if not movimientos:
         print("No hay movimientos registrados.")
-        return
+        Log("Intento de visualizar reportes sin movimientos")
+    else:
+        movimientos_ordenados = sorted(movimientos, key=lambda mov: mov["fecha"])
+        print("\n--- Últimos movimientos ---")
+        for movimiento in movimientos_ordenados[-5:]:
+            print(
+                f"{movimiento['fecha']} - {movimiento['descripcion']} - "
+                f"${movimiento['monto']:.2f} - Saldo: ${movimiento['saldo']:.2f}")
+        saldo_promedio = sum(mov["saldo"] for mov in movimientos_ordenados) / len(movimientos_ordenados)
+        ingresos = sum(mov["monto"] for mov in movimientos_ordenados if mov["monto"] > 0)
+        egresos = sum(-mov["monto"] for mov in movimientos_ordenados if mov["monto"] < 0)
 
-    movimientos_ordenados = sorted(movimientos, key=lambda mov: mov["fecha"])
-    print("\n--- Últimos movimientos ---")
-    for movimiento in movimientos_ordenados[-5:]:
-        print(
-            f"{movimiento['fecha']} - {movimiento['descripcion']} - ${movimiento['monto']:.2f} - Saldo: ${movimiento['saldo']:.2f}"
-        )
+        print("\n--- Resumen ---")
+        print(f"Saldo promedio: ${saldo_promedio:.2f}")
+        print(f"Total de ingresos: ${ingresos:.2f}")
+        print(f"Total de egresos: ${egresos:.2f}")
 
-    saldo_promedio = sum(mov["saldo"] for mov in movimientos_ordenados) / len(movimientos_ordenados)
-    ingresos = sum(mov["monto"] for mov in movimientos_ordenados if mov["monto"] > 0)
-    egresos = sum(-mov["monto"] for mov in movimientos_ordenados if mov["monto"] < 0)
-    print("\n--- Resumen ---")
-    print(f"Saldo promedio: ${saldo_promedio:.2f}")
-    print(f"Total de ingresos: ${ingresos:.2f}")
-    print(f"Total de egresos: ${egresos:.2f}")
-    Log("Visualización de reportes")
+        Log("Visualización de reportes")
+        mostrado = True
 
+    return mostrado
 
-def calcularPlazoFijo(saldo, meses):
+def calcularPlazoFijo(saldo, meses): #RECURSIVA
     if meses == 0:
         return saldo
     return calcularPlazoFijo(saldo * 1.05, meses - 1)
 
 
 def simularPlazoFijo():
+    simulado = False
     usuario = leerUsuario()
     if not usuario:
         print("No hay usuario registrado.")
-        return
+        Log("Intento de simulación de plazo fijo sin usuario registrado")
+    else:
+        while True:
+            try:
+                meses = int(input("Ingrese la cantidad de meses a simular: "))
+                if meses < 0:
+                    raise ValueError("La cantidad de meses debe ser mayor o igual a cero.")
+                break
+            except ValueError as e:
+                print("Entrada inválida.", e)
 
-    while True:
-        try:
-            meses = int(input("Ingrese la cantidad de meses a simular: "))
-            if meses < 0:
-                raise ValueError("La cantidad de meses debe ser mayor o igual a cero")
-            break
-        except ValueError as e:
-            print("Entrada inválida.", e)
+        capital_final = calcularPlazoFijo(usuario["saldo"], meses)
+        ganancia = capital_final - usuario["saldo"]
 
-    capital_final = calcularPlazoFijo(usuario["saldo"], meses)
-    ganancia = capital_final - usuario["saldo"]
-    print(f"Capital actual: ${usuario['saldo']:.2f}")
-    print(f"Capital estimado luego de {meses} meses: ${capital_final:.2f}")
-    print(f"Ganancia estimada: ${ganancia:.2f}")
-    Log("Simulación de plazo fijo")
+        print(f"\n--- Simulación de Plazo Fijo ---")
+        print(f"Capital actual: ${usuario['saldo']:.2f}")
+        print(f"Capital estimado luego de {meses} meses: ${capital_final:.2f}")
+        print(f"Ganancia estimada: ${ganancia:.2f}")
+
+        Log(f"Simulación de plazo fijo por {meses} meses realizada correctamente")
+        simulado = True
+
+    return simulado
+
 
 
 def menuPrincipal():
-    while True:
+    activo = True
+
+    while activo:
         usuario = leerUsuario()
         if not usuario:
             print("No se pudo obtener la información del usuario.")
-            return
+            Log("Error al obtener información del usuario en el menú principal")
+            break
 
         print("\n--- Menú Principal ---")
         print("1. Consultar saldo")
@@ -529,6 +584,7 @@ def menuPrincipal():
         print("7. Ver reportes")
         print("8. Simular plazo fijo")
         print("9. Salir")
+
         opcion = input("Seleccione una opción: ").strip()
 
         if opcion == "1":
@@ -550,9 +606,12 @@ def menuPrincipal():
         elif opcion == "9":
             Log("Cierre de sesión")
             print("Hasta luego!")
-            break
+            activo = False
         else:
-            print("Opción inválida.")
+            print("Opción inválida. Intente nuevamente.")
+            Log(f"Opción inválida ingresada: {opcion}")
+    return activo
+
 
 
 def iniciarAplicacion():
